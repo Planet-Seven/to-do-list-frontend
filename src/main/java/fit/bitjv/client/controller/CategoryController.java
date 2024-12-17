@@ -35,4 +35,10 @@ public class CategoryController {
         return categoryService.createCategory(request)
                 .thenReturn("redirect:/categories");
     }
+
+    @GetMapping("/{id}/delete")
+    public Mono<String> deleteTask(@PathVariable("id") Long id) {
+        return categoryService.deleteCategory(id)
+                .thenReturn("redirect:/categories");
+    }
 }

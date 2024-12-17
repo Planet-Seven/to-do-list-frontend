@@ -35,4 +35,10 @@ public class TagController {
         return tagService.createTag(request)
                 .thenReturn("redirect:/tags");
     }
+
+    @GetMapping("/{id}/delete")
+    public Mono<String> deleteTask(@PathVariable("id") Long id) {
+        return tagService.deleteTag(id)
+                .thenReturn("redirect:/tags");
+    }
 }
