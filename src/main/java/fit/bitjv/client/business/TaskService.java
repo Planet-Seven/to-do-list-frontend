@@ -72,7 +72,7 @@ public class TaskService {
         TaskRequest request = mapper.map(task, TaskRequest.class);
 
         request.setTagIds(new HashSet<>());
-        request.setDone(true);
+        request.setDone(!task.isDone());
         for (TagResponse tag : task.getTags()) {
             request.getTagIds().add(tag.getTagId());
         }
