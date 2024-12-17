@@ -1,4 +1,6 @@
 package fit.bitjv.client.controller;
+import fit.bitjv.client.business.CategoryService;
+import fit.bitjv.client.business.TagService;
 import fit.bitjv.client.business.TaskService;
 import fit.bitjv.client.domain.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
-import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,18 +16,22 @@ import java.util.stream.Collectors;
 public class TaskController {
 
     private final TaskService taskService;
+    private final TagService tagService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TagService tagService, CategoryService categoryService) {
         this.taskService = taskService;
+        this.tagService = tagService;
+        this.categoryService = categoryService;
     }
 
     // Fetch all tasks, categories, and tags asynchronously
     @GetMapping
     public Mono<String> getAllTasks(Model model) {
         Mono<List<TaskResponse>> tasks = taskService.getAllTasks();
-        Mono<List<CategoryResponse>> categories = taskService.getAllCategories();
-        Mono<List<TagResponse>> tags = taskService.getAllTags();
+        Mono<List<CategoryResponse>> categories = categoryService.getAllCategories();
+        Mono<List<TagResponse>> tags = tagService.getAllTags();
 
         model.addAttribute("task", new CreateTaskRequest()); // Empty CreateTaskRequest for form binding
         return Mono.zip(tasks, categories, tags)
@@ -55,8 +59,8 @@ public class TaskController {
     @GetMapping("/{id}/edit")
     public Mono<String> editTask(@PathVariable("id") Long id, Model model) {
         Mono<TaskResponse> task = taskService.getTaskById(id);
-        Mono<List<CategoryResponse>> categories = taskService.getAllCategories();
-        Mono<List<TagResponse>> tags = taskService.getAllTags();
+        Mono<List<CategoryResponse>> categories = categoryService.getAllCategories();
+        Mono<List<TagResponse>> tags = tagService.getAllTags();
 
         return Mono.zip(task, categories, tags)
                 .doOnNext(data -> {

@@ -30,27 +30,6 @@ public class TaskService {
                 .bodyToMono(new ParameterizedTypeReference<List<TaskResponse>>() {});
     }
 
-    // Fetch all categories
-    public Mono<List<CategoryResponse>> getAllCategories() {
-        return webClientBuilder.baseUrl(apiUrl)
-                .build()
-                .get()
-                .uri("/categories")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<CategoryResponse>>() {});
-    }
-
-    // Fetch all tags
-    public Mono<List<TagResponse>> getAllTags() {
-        return webClientBuilder.baseUrl(apiUrl)
-                .build()
-                .get()
-                .uri("/tags")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<TagResponse>>() {});
-    }
-
-    // Fetch a specific task by ID
     public Mono<TaskResponse> getTaskById(Long id) {
         return webClientBuilder.baseUrl(apiUrl)
                 .build()
@@ -60,7 +39,6 @@ public class TaskService {
                 .bodyToMono(TaskResponse.class);
     }
 
-    // Create or update a task
     public Mono<TaskResponse> createTask(CreateTaskRequest request) {
         return webClientBuilder.baseUrl(apiUrl)
                 .build()
