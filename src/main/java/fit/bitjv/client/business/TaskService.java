@@ -73,7 +73,9 @@ public class TaskService {
 
         request.setTagIds(new HashSet<>());
         //this is horrible and ugly but webflux apparently doesn't know how to work with LocalDate
-        request.setDeadline(task.getDeadline().toInstant().toString());
+        if (task.getDeadline() != null)
+            request.setDeadline(task.getDeadline().toInstant().toString());
+
         request.setDone(!task.isDone());
         for (TagResponse tag : task.getTags()) {
             request.getTagIds().add(tag.getTagId());
