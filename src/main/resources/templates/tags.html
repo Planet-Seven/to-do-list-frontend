@@ -41,13 +41,12 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="tag : ${tags}">
             <td th:text="${tag.name}"></td>
-            <td>
+            <td class="d-flex justify-content-end">
                 <a th:href="@{/tags/{id}/delete(id=${tag.tagId})}" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>

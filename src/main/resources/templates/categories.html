@@ -41,13 +41,12 @@
     <thead>
     <tr>
       <th>Name</th>
-      <th>Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="category : ${categories}">
       <td th:text="${category.name}"></td>
-      <td>
+      <td class="d-flex justify-content-end">
         <a th:href="@{/categories/{id}/delete(id=${category.categoryId})}" class="btn btn-danger btn-sm">Delete</a>
       </td>
     </tr>
