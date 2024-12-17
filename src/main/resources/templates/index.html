@@ -36,6 +36,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" id="deadline" th:field="*{deadline}" class="form-control">
+        </div>
+
+        <div class="mb-3">
             <label for="categoryId" class="form-label">Category</label>
             <select id="categoryId" th:field="*{categoryId}" class="form-select" required>
                 <option value="">Select Category</option>
@@ -82,7 +87,7 @@
                     </th:block>
                 </td>
                 <td>
-                    <span th:text="${#dates.format(task.deadline, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    <span th:text="${#dates.format(task.deadline, 'yyyy-MM-dd')}"></span>
                 </td>
                 <td>
                     <a th:href="@{/tasks/{id}/toggle_done(id=${task.taskId})}" class="btn btn-warning btn-sm">
