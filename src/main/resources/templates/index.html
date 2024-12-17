@@ -69,13 +69,12 @@
             <th>Category</th>
             <th>Tags</th>
             <th>Deadline</th>
-            <th>Done</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <th:block th:each="task : ${tasks}">
-            <tr>
+            <tr th:classappend="${task.isDone} ? 'table-secondary text-muted' : ''">
                 <td th:text="${task.name}"></td>
                 <td th:text="${task.category.name}"></td>
                 <td>
@@ -84,12 +83,12 @@
                     </th:block>
                 </td>
                 <td>
-                    <!-- Format and display the deadline -->
                     <span th:text="${#dates.format(task.deadline, 'yyyy-MM-dd HH:mm:ss')}"></span>
                 </td>
-                <td th:text="${task.isDone}"></td>
                 <td>
-                    <a th:href="@{/tasks/{id}/toggle_done(id=${task.taskId})}" class="btn btn-waring btn-sm">Mark done</a>
+                    <a th:href="@{/tasks/{id}/toggle_done(id=${task.taskId})}" class="btn btn-warning btn-sm">
+                        <span th:text="${task.isDone} ? 'Mark Undone' : 'Mark Done'"></span>
+                    </a>
                     <a th:href="@{/tasks/{id}/delete(id=${task.taskId})}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
