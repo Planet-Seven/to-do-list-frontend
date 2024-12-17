@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 public class TaskRequest {
     private String name;
+    //this is horrible and ugly but webflux apparently doesn't know how to work with LocalDate
     private String deadline;
     private boolean isDone;
     private Long categoryId;

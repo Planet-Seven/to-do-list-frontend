@@ -14,6 +14,7 @@ import java.util.Set;
 public class TaskResponse {
     private Long taskId;
     private String name;
+    //this is horrible and ugly but webflux apparently doesn't know how to work with LocalDate
     private Date deadline;
     private boolean isDone;
     private CategoryResponse category;
