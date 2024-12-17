@@ -1,5 +1,6 @@
 package fit.bitjv.client;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,5 +16,10 @@ public class WebClientConfig {
     @Bean
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder().baseUrl(apiUrl);
+    }
+
+    @Bean
+    public ModelMapper ModelMapperBean() {
+        return new ModelMapper();
     }
 }

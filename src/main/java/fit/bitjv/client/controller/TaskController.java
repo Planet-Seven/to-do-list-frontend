@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("tasks")
@@ -33,7 +32,8 @@ public class TaskController {
         Mono<List<CategoryResponse>> categories = categoryService.getAllCategories();
         Mono<List<TagResponse>> tags = tagService.getAllTags();
 
-        model.addAttribute("task", new CreateTaskRequest()); // Empty CreateTaskRequest for form binding
+        model.addAttribute("task", new TaskRequest());
+        // Empty CreateTaskRequest for form binding
         return Mono.zip(tasks, categories, tags)
                 .doOnNext(data -> {
                     model.addAttribute("tasks", data.getT1());
@@ -43,42 +43,18 @@ public class TaskController {
                 .thenReturn("index");
     }
 
-    // Create or update task
     @PostMapping
-    public Mono<String> createTask(@ModelAttribute CreateTaskRequest request) {
+    public Mono<String> createTask(@ModelAttribute TaskRequest request) {
         return taskService.createTask(request)
                 .thenReturn("redirect:/tasks");
     }
 
-    @PutMapping
-    public Mono<String> updateTask(@ModelAttribute UpdateTaskRequest request) {
-        return taskService.updateTask(request)
+    @GetMapping("/{id}/toggle_done")
+    public Mono<String> editTask(@PathVariable("id") Long id) {
+        return taskService.toggleDone(id)
                 .thenReturn("redirect:/tasks");
     }
 
-    @GetMapping("/{id}/edit")
-    public Mono<String> editTask(@PathVariable("id") Long id, Model model) {
-        Mono<TaskResponse> task = taskService.getTaskById(id);
-        Mono<List<CategoryResponse>> categories = categoryService.getAllCategories();
-        Mono<List<TagResponse>> tags = tagService.getAllTags();
-
-        return Mono.zip(task, categories, tags)
-                .doOnNext(data -> {
-                    model.addAttribute("task", new UpdateTaskRequest(
-                            data.getT1().getTaskId(),
-                            data.getT1().getName(),
-                            data.getT1().getDeadline(),
-                            data.getT1().getCategory().getCategoryId(),
-                            data.getT1().getIsDone(),
-                            data.getT1().getTags().stream().map(TagResponse::getTagId).collect(Collectors.toSet())
-                    ));
-                    model.addAttribute("categories", data.getT2());
-                    model.addAttribute("tags", data.getT3());
-                })
-                .thenReturn("index");
-    }
-
-    // Delete task
     @GetMapping("/{id}/delete")
     public Mono<String> deleteTask(@PathVariable("id") Long id) {
         return taskService.deleteTask(id)

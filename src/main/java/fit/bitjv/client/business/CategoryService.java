@@ -30,7 +30,7 @@ public class CategoryService {
                 .bodyToMono(new ParameterizedTypeReference<List<CategoryResponse>>() {});
     }
 
-    public Mono<CategoryResponse> createCategory(CreateCategoryRequest request) {
+    public Mono<CategoryResponse> createCategory(CategoryRequest request) {
         return webClientBuilder.baseUrl(apiUrl)
                 .build()
                 .post()

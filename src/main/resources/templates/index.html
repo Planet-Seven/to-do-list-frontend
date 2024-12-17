@@ -68,7 +68,8 @@
             <th>Title</th>
             <th>Category</th>
             <th>Tags</th>
-            <th>Deadline</th> <!-- Add Deadline column -->
+            <th>Deadline</th>
+            <th>Done</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -86,8 +87,9 @@
                     <!-- Format and display the deadline -->
                     <span th:text="${#dates.format(task.deadline, 'yyyy-MM-dd HH:mm:ss')}"></span>
                 </td>
+                <td th:text="${task.isDone}"></td>
                 <td>
-                    <a th:href="@{/tasks/{id}/edit(id=${task.taskId})}" class="btn btn-waring btn-sm">Edit</a>
+                    <a th:href="@{/tasks/{id}/toggle_done(id=${task.taskId})}" class="btn btn-waring btn-sm">Mark done</a>
                     <a th:href="@{/tasks/{id}/delete(id=${task.taskId})}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>

@@ -31,7 +31,7 @@ public class TagService {
                 .bodyToMono(new ParameterizedTypeReference<List<TagResponse>>() {});
     }
 
-    public Mono<TagResponse> createTag(CreateTagRequest request) {
+    public Mono<TagResponse> createTag(TagRequest request) {
         return webClientBuilder.baseUrl(apiUrl)
                 .build()
                 .post()
