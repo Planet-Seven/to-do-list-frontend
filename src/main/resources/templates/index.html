@@ -8,7 +8,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Tasks</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +28,7 @@
 </nav>
 
 <div class="container mt-5">
-    <h1>Create Task</h1>
+    <h1>Tasks</h1>
     <form th:action="@{/tasks}" method="post" th:object="${task}">
         <div class="mb-3">
             <label for="name" class="form-label">Task Name</label>
