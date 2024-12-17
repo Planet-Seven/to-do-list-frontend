@@ -7,6 +7,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
+    <a class="navbar-brand" href="#">Categories</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,11 +42,15 @@
     <thead>
     <tr>
       <th>Name</th>
+      <th>Delete</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="category : ${categories}">
       <td th:text="${category.name}"></td>
+      <td>
+        <a th:href="@{/categories/{id}/delete(id=${category.categoryId})}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
     </tr>
     </tbody>
   </table>
