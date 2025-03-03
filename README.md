@@ -1,1 +1,1 @@
-# BI-TJV-klient
+# Client application for the to-do-list app
